@@ -30,7 +30,9 @@ if not configs.jdtls then
   configs.jdtls = {
     default_config = {
       cmd = {
-        'jdtls', '-data', '/tmp/jdtls'
+        os.getenv("JDTLS_HOME") .. "/bin/jdtls",
+	'-data',
+	'/tmp/jdtls'
       },
       filetypes = { 'java' },
       root_dir = lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git'),
