@@ -20,33 +20,6 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', {
 
 require('lualine').setup()
 
--- Подключение lspconfig
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
-
-local jdtlsKeyMap = require("configs.jdtlsKeyMap")
--- Кастомная настройка jdtls
-if not configs.jdtls then
-  configs.jdtls = {
-    default_config = {
-      cmd = {
-        os.getenv("JDTLS_HOME") .. "/bin/jdtls",
-	'-data',
-	'/tmp/jdtls'
-      },
-      filetypes = { 'java' },
-      root_dir = lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git'),
-      settings = {},
-      on_attach = function(client, bufnr)
-        jdtlsKeyMap.setup(bufnr)
-      end,
-    }
-  }
-end
-
--- Запуск jdtls
-
-lspconfig.jdtls.setup {}
-
+require('configs.jdtls')
 require('configs.cmp')
 require("configs.luasnip")
